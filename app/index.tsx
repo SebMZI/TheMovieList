@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import MovieCard from "@/components/MovieCard";
 import { FlatList, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +13,7 @@ const DATA = [
 export default function Index() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#272727' }}>
+      <Header/>
       <FlatList
         data={DATA}
         keyExtractor={item => item.id}
