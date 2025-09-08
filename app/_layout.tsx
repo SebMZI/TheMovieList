@@ -1,5 +1,24 @@
+import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 import { Stack } from "expo-router";
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  return <Stack />;
+  const [loaded, error] = useFonts({
+    Inter_900Black,
+  });
+
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+
+  if (!loaded && !error) {
+    return null;
+  }
+
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
