@@ -20,7 +20,7 @@ export default function Index() {
          columnWrapperStyle={styles.columnWrapper}
         renderItem={() => (
           <View style={styles.cardWrapper}>
-            <MovieCard />
+            <MovieCard rating={5}/>
           </View>
         )}
       />
