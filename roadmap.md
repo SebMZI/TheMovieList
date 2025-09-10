@@ -1,7 +1,7 @@
 # MovieList App Roadmap
 
 ## Phase 1: Project Setup
-- [ ] Initialize React Native project
+- [X] Initialize React Native project
   - Set up TypeScript configuration
   - Configure ESLint and Prettier
 - [ ] Set up MongoDB project
