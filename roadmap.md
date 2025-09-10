@@ -35,7 +35,7 @@
 - [ ] Implement error handling
 
 ## Phase 3: Frontend Core Features
-- [ ] Create basic UI components
+- [X] Create basic UI components
   - SearchBar component
   - MovieCard component
   - MovieList component
