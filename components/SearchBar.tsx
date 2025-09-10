@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        paddingInline: 12
+        paddingInline: 12,
+        paddingBlock: 6
     },
     search_bar__input:{
         fontSize: 16,
