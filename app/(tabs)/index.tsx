@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
-export default function Index() {
+export default function Home() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#272727' }}>
       <Header/>
