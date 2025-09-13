@@ -4,6 +4,7 @@ export const storeData = async (value) => {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem('watchlist', jsonValue);
+    
   } catch (e) {
     console.log("Error saving value", e);
   }
@@ -12,9 +13,10 @@ export const storeData = async (value) => {
 export const getData = async () => {
   try {
     const jsonValue = await AsyncStorage.getItem('watchlist');
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    const parsed = jsonValue != null ? JSON.parse(jsonValue) : [];
+    return Array.isArray(parsed) ? parsed : []; 
   } catch (e) {
     console.log("Error reading value", e);
-    return {}
+    return [];
   }
 };

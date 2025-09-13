@@ -19,7 +19,7 @@ const MovieCard = ({movie}: {movie: object}) => {
         <Link href="/modal" asChild>
             <TouchableOpacity onPress={() => setMovie()}>
                 <View>
-                    <Image source={{uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`}} style={styles.movie_card__img} />
+                    <Image source={{uri: `${ movie.poster_url || `https://image.tmdb.org/t/p/w500/${movie.poster_path}`}`}} style={styles.movie_card__img} />
                         <View style={styles.movie_card__info}>
                             <Text style={styles.movie_card__title} numberOfLines={2} ellipsizeMode='tail'>{movie.title || movie.name || "No title"}</Text>
                             <View style={styles.movie_card_rating}>

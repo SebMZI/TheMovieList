@@ -1,17 +1,11 @@
 import Loader from '@/assets/Loader';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import MovieCard from './MovieCard';
 
 
 
 const MovieList = ({movies, onEndReached, loading}) => {
-  const [selectedMovie, setSelectedMovie] = useState<object | null>({});
-  
-  useEffect(() => {
-    console.log(selectedMovie);
-  }, [selectedMovie]);
-
 
   return (
     <View>
@@ -32,7 +26,7 @@ const MovieList = ({movies, onEndReached, loading}) => {
             ListFooterComponent={loading ? <Loader/> : null}
             renderItem={({item}) => (
                 <View style={styles.cardWrapper}>
-                    <MovieCard movie={item} setSelectedMovie={setSelectedMovie}/>
+                    <MovieCard movie={item}/>
                 </View>
             )}
         />
