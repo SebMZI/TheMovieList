@@ -9,6 +9,7 @@ const MovieCard = ({movie}: {movie: object}) => {
     const {setSelectedMovie} = useMovie();
     
     const setMovie = async () => {
+        setSelectedMovie({});
         const result = await addToDatabase(movie);  
         setSelectedMovie(result);
     }
