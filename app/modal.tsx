@@ -59,6 +59,10 @@ export default function Modal() {
           <Text style={{color: "white", fontWeight: '700', paddingRight: 20}}>Producers</Text>
           <Text style={{color: "white", width: "70%", textAlign: "right"}}>{selectedMovie.producers || "Unknown"}</Text>
         </View>
+         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
+          <Text style={{color: "white", fontWeight: '700', paddingRight: 20}}>Cast</Text>
+          <Text style={{color: "white", width: "70%", textAlign: "right"}}>{selectedMovie.cast || "Unknown"}</Text>
+        </View>
       </View>
     </ScrollView>
   );

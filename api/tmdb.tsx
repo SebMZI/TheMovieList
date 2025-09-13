@@ -22,7 +22,7 @@ export const fetchMovies = async (page = 1) => {
     }
 }
 
-export const fetchMovieCredits = async (movieId) => {
+export const fetchMovieCredits = async (movieId: number) => {
     const url = `https://api.themoviedb.org/3/movie/${movieId}/credits`;
     const options = {
         method: 'GET',
@@ -46,7 +46,7 @@ export const fetchMovieCredits = async (movieId) => {
     }
 }
 
-export const fetchSeriesCredits = async (seriesId) => {
+export const fetchSeriesCredits = async (seriesId: number) => {
     const url = `https://api.themoviedb.org/3/tv/${seriesId}/credits`;
     const options = {
         method: 'GET',

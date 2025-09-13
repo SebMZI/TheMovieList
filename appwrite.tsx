@@ -18,7 +18,6 @@ export const addToDatabase = async (media) => {
       return;
     }
 
-    // Check if media already exists
     const result = await databases.listDocuments({
       databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID ?? "",
       collectionId: process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID ?? "",
@@ -50,7 +49,6 @@ export const addToDatabase = async (media) => {
       media.cast = tvCast;
     }
 
-    // Add media
     const movie = await databases.createDocument({
       databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID ?? "",
       collectionId: process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID ?? "",

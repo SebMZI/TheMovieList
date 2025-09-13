@@ -13,9 +13,7 @@ const MovieCard = ({movie}: {movie: object}) => {
         const result = await addToDatabase(movie);  
         setSelectedMovie(result);
     }
-
-
-
+    
     const rating = Math.round((movie?.vote_average / 10) * 5);
     return (
         <Link href="/modal" asChild>
