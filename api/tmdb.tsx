@@ -1,5 +1,5 @@
-export const fetchMovies = async () => {
-    const url = 'https://api.themoviedb.org/3/trending/all/week';
+export const fetchMovies = async (page = 1) => {
+    const url = `https://api.themoviedb.org/3/trending/all/week?page=${page}`;
     const options = {
         method: 'GET',
         headers: {

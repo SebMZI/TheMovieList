@@ -1,17 +1,28 @@
+import Loader from '@/assets/Loader';
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import MovieCard from './MovieCard';
 
-const MovieList = ({movies}) => {
-    
+
+
+const MovieList = ({movies, onEndReached, loading}) => {
   return (
     <View>
         <FlatList
             data={movies}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) =>
+              item.id
+                ? `${item.id}_${index}`
+                : item.tmdbId
+                ? `${item.tmdbId}_${index}`
+                : `${Math.random()}_${index}`
+            }
             numColumns={2}
             contentContainerStyle={styles.movie_container}
             columnWrapperStyle={styles.columnWrapper}
+            onEndReached={onEndReached}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={loading ? <Loader/> : null}
             renderItem={({item}) => (
                 <View style={styles.cardWrapper}>
                   <MovieCard movie={item}/>
