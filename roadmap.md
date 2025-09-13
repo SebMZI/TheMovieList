@@ -4,37 +4,14 @@
 - [X] Initialize React Native project
   - Set up TypeScript configuration
   - Configure ESLint and Prettier
-- [ ] Set up MongoDB project
+- [X] Set up Appwrtie project
   - Create database and collections
-  - Set up connection string
-- [ ] Initialize Express backend
-  - Configure basic middleware
-  - Set up environment variables
-- [ ] TMDB API integration
+  - Set up connection 
+- [X] TMDB API integration
   - Get API key
   - Create API utility functions
 
-## Phase 2: Backend Development
-- [ ] Create MongoDB Schema
-  ```typescript
-  Movie {
-    tmdbId: number
-    title: string
-    posterPath: string
-    releaseDate: Date
-    overview: string
-    addedDate: Date
-  }
-  ```
-- [ ] Implement API endpoints
-  - POST /api/movies (add movie)
-  - GET /api/movies (get watchlist)
-  - DELETE /api/movies/:id (remove movie)
-  - GET /api/search (search TMDB)
-- [ ] Add data validation
-- [ ] Implement error handling
-
-## Phase 3: Frontend Core Features
+## Phase 2: Frontend Core Features
 - [X] Create basic UI components
   - SearchBar component
   - MovieCard component
@@ -48,9 +25,9 @@
   - Display saved movies
   - Remove functionality
   - Pull-to-refresh
-- [ ] Add navigation between screens
+- [X] Add navigation between screens
 
-## Phase 4: Data Management
+## Phase 3: Data Management
 - [ ] Implement local caching
   - Cache movie details
   - Cache images
