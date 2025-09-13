@@ -1,6 +1,6 @@
 import { getData, storeData } from '@/storage/asyncStorage';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useMovie } from '../context/MovieContext';
 
 export default function Modal() {
@@ -20,6 +20,7 @@ export default function Modal() {
     findMovieInWatchlist();
   }, [selectedMovie, watchlist]);
 
+  const isMovieViewed = watchlist.some((movie) => movie.tmdb_id === selectedMovie.tmdb_id && movie.movieViewed);
 
   if (isLoading) {
     return (
@@ -52,12 +53,29 @@ export default function Modal() {
       return;
     }
 
+    selectedMovie.movieViewed = false
     newWatchlist = [...watchlist, selectedMovie];
     await storeData(newWatchlist);
     setWatchlist(newWatchlist);
     setIsMovieInWatchlist(false);
     console.log("Movie added to watchlist");
   };
+
+  const toggleMovieViewed = async () => {
+    const watchlist = await getData() || [];
+    const updatedWatchlist = watchlist.map((movie) => {
+      if (movie.tmdb_id === selectedMovie.tmdb_id) {
+        return { ...movie, movieViewed: !movie.movieViewed };
+      }
+      return movie;
+    });
+    await storeData(updatedWatchlist);
+    setWatchlist(updatedWatchlist);
+  }
+
+  const iconEye = require("../assets/images/icons/icon_eye.png");
+  const iconEyeHidden = require("../assets/images/icons/icon_eye_hidden.png");
+
 
 
   return (
@@ -70,7 +88,18 @@ export default function Modal() {
       <View style={styles.movie_modal__details}>
         <View style={styles.movie_modal__header}>
           <Text style={styles.movie_modal__title} numberOfLines={2} ellipsizeMode='tail'>{selectedMovie.title || "No title"}</Text>
-          <Image source={require("../assets/images/icons/icon_eye.png")} style={{width: 24, height: 24}}/>
+         
+         {
+          isMovieInWatchlist && ( 
+              <TouchableOpacity onPress={() => {
+                toggleMovieViewed()
+              }}>
+                <View>
+                  <Image source={isMovieViewed ? iconEyeHidden : iconEye} style={{width: 24, height: 24}}/> 
+                </View>
+              </TouchableOpacity>
+          )
+         }
         </View>
         <View style={styles.movie_modal_rating}>
           {
