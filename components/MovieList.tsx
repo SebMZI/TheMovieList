@@ -1,15 +1,18 @@
 import Loader from '@/assets/Loader';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import MovieCard from './MovieCard';
 
 
 
 const MovieList = ({movies, onEndReached, loading}) => {
-  const [selectedMovie, setSelectedMovie] = React.useState<object | null>({});
+  const [selectedMovie, setSelectedMovie] = useState<object | null>({});
+  
   useEffect(() => {
     console.log(selectedMovie);
   }, [selectedMovie]);
+
+
   return (
     <View>
         <FlatList

@@ -1,3 +1,4 @@
+import { MovieProvider } from "@/context/MovieContext";
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 import { Stack } from "expo-router";
 import * as SplashScreen from 'expo-splash-screen';
@@ -21,8 +22,14 @@ export default function RootLayout() {
   }
 
   return (
-     <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <MovieProvider>
+      <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{
+            presentation: 'modal',
+            headerShown: false
+          }} />
+      </Stack>
+    </MovieProvider>
   )
 }

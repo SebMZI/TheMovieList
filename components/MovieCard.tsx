@@ -1,25 +1,39 @@
 
+import { addToDatabase } from '@/appwrite';
+import { useMovie } from '@/context/MovieContext';
+import { Link } from 'expo-router';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 
-const MovieCard = ({movie, setSelectedMovie}: {movie: object}) => {
-    const rating = Math.round((movie.vote_average / 10) * 5);
+const MovieCard = ({movie}: {movie: object}) => {
+    const {setSelectedMovie} = useMovie();
+    
+    const setMovie = async () => {
+        const result = await addToDatabase(movie);  
+        setSelectedMovie(result);
+    }
+
+
+
+    const rating = Math.round((movie?.vote_average / 10) * 5);
     return (
-        <TouchableOpacity onPress={() => setSelectedMovie(movie)}>
-            <View>
-                <Image source={{uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`}} style={styles.movie_card__img} />
-                    <View style={styles.movie_card__info}>
-                        <Text style={styles.movie_card__title} numberOfLines={2} ellipsizeMode='tail'>{movie.title || movie.name || "No title"}</Text>
-                        <View style={styles.movie_card_rating}>
-                            {
-                                Array.from({ length: rating}).map((_, index) => (
-                                    <Image key={index} source={require("../assets/images/icons/icon_star_yellow.png")} style={styles.movie_card_star__img}/>
-                                ))
-                            }
+        <Link href="/modal" asChild>
+            <TouchableOpacity onPress={() => setMovie()}>
+                <View>
+                    <Image source={{uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`}} style={styles.movie_card__img} />
+                        <View style={styles.movie_card__info}>
+                            <Text style={styles.movie_card__title} numberOfLines={2} ellipsizeMode='tail'>{movie.title || movie.name || "No title"}</Text>
+                            <View style={styles.movie_card_rating}>
+                                {
+                                    Array.from({ length: rating}).map((_, index) => (
+                                        <Image key={index} source={require("../assets/images/icons/icon_star_yellow.png")} style={styles.movie_card_star__img}/>
+                                    ))
+                                }
+                            </View>
                         </View>
-                    </View>
-            </View>
-        </TouchableOpacity>
+                </View>
+            </TouchableOpacity>
+        </Link>
     )
 }
 
