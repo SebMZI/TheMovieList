@@ -6,30 +6,42 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 
 const MovieCard = ({movie}: {movie: object}) => {
-    const {setSelectedMovie} = useMovie();
+    const {setSelectedMovie, watchlist} = useMovie();
     
     const setMovie = async () => {
         setSelectedMovie({});
         const result = await addToDatabase(movie);  
         setSelectedMovie(result);
     }
+
+    const isMovieViewed = watchlist.some((movieObject) => movieObject.tmdb_id === movie.tmdb_id && movieObject.movieViewed);
     
     const rating = Math.round((movie?.vote_average / 10) * 5);
     return (
         <Link href="/modal" asChild>
             <TouchableOpacity onPress={() => setMovie()}>
                 <View>
-                    <Image source={{uri: `${ movie.poster_url || `https://image.tmdb.org/t/p/w500/${movie.poster_path}`}`}} style={styles.movie_card__img} />
-                        <View style={styles.movie_card__info}>
-                            <Text style={styles.movie_card__title} numberOfLines={2} ellipsizeMode='tail'>{movie.title || movie.name || "No title"}</Text>
-                            <View style={styles.movie_card_rating}>
-                                {
-                                    Array.from({ length: rating}).map((_, index) => (
-                                        <Image key={index} source={require("../assets/images/icons/icon_star_yellow.png")} style={styles.movie_card_star__img}/>
-                                    ))
-                                }
-                            </View>
+                    <View>
+                        {
+                            isMovieViewed && (
+                                <View style={{position: 'absolute', zIndex: 1, backgroundColor: 'rgba(0,0,0,0.6)', width: '100%', height: '100%', borderRadius: 10, justifyContent: 'center', alignItems: 'center'}}>
+                                    <Image source={require("../assets/images/icons/icon_eye.png")} style={{width: 24, height: 24}}/>
+                                </View>
+                            )
+                        }
+
+                        <Image source={{ uri: movie.poster_url || `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }} style={styles.movie_card__img} />
+                    </View>
+                    <View style={styles.movie_card__info}>
+                        <Text style={styles.movie_card__title} numberOfLines={2} ellipsizeMode='tail'>{movie.title || movie.name || "No title"}</Text>
+                        <View style={styles.movie_card_rating}>
+                            {
+                                Array.from({ length: rating}).map((_, index) => (
+                                    <Image key={index} source={require("../assets/images/icons/icon_star_yellow.png")} style={styles.movie_card_star__img}/>
+                                ))
+                            }
                         </View>
+                    </View>
                 </View>
             </TouchableOpacity>
         </Link>
