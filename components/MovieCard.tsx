@@ -14,7 +14,9 @@ const MovieCard = ({movie}: {movie: object}) => {
         setSelectedMovie(result);
     }
 
-    const isMovieViewed = watchlist.some((movieObject) => movieObject.tmdb_id === movie.tmdb_id && movieObject.movieViewed);
+    console.log(movie)
+
+    const isMovieViewed = watchlist.some((movieObject) => movieObject.tmdb_id === (movie.id || movie.tmdb_id) && movieObject.movieViewed);
     
     const rating = Math.round((movie?.vote_average / 10) * 5);
     return (

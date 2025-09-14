@@ -21,19 +21,17 @@
   - Results display
   - Loading states
   - Error handling
-- [ ] Create watchlist screen
+- [X] Create watchlist screen
   - Display saved movies
   - Remove functionality
-  - Pull-to-refresh
 - [X] Add navigation between screens
 
 ## Phase 3: Data Management
-- [ ] Implement local caching
+- [X] Implement local caching
   - Cache movie details
-  - Cache images
 - [ ] Add loading states
 - [ ] Handle offline functionality
-- [ ] Add data persistence
+- [X] Add data persistence
 
 ## Technical Stack
 - Frontend: 
