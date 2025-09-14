@@ -43,9 +43,10 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     gap: 10,
+    justifyContent: "space-between"
   },
   cardWrapper: {
-    flex: 1,
+    width: "50%",
     padding: 8,
     marginBottom: 16,
   },

@@ -21,13 +21,20 @@ export default function Watchlist() {
     }
   }
 
+  const fetchMovie = (query: string) => {
+    console.log("Fetch movie called with query:", query);
+    const movieFound = watchlist.filter((movie) => movie.title.toLowerCase().includes(query.toLowerCase()) || movie.cast.toLowerCase().includes(query.toLowerCase()) || movie.producers.toLowerCase().includes(query.toLowerCase()))
+    console.log("Found movie called with query:", movieFound);
+    return movieFound;
+  }
+
   useEffect(() => {
     getMovies()
   }, [])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#272727' }}>
-      <Header/>
+      <Header fetchMovie={fetchMovie}/>
       <MovieList movies={watchlist} onEndReached={() => {}} loading={false}/>
     </SafeAreaView>
   );

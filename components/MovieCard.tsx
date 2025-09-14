@@ -14,11 +14,8 @@ const MovieCard = ({movie}: {movie: object}) => {
         setSelectedMovie(result);
     }
 
-    console.log(movie)
+    const isMovieViewed = watchlist.some((movieObject) => movieObject.tmdb_id === movie.tmdb_id && movieObject.movieViewed);
 
-    const isMovieViewed = watchlist.some((movieObject) => movieObject.tmdb_id === (movie.id || movie.tmdb_id) && movieObject.movieViewed);
-    
-    const rating = Math.round((movie?.vote_average / 10) * 5);
     return (
         <Link href="/modal" asChild>
             <TouchableOpacity onPress={() => setMovie()}>
@@ -32,13 +29,13 @@ const MovieCard = ({movie}: {movie: object}) => {
                             )
                         }
 
-                        <Image source={{ uri: movie.poster_url || `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }} style={styles.movie_card__img} />
+                        <Image source={{ uri: movie.poster_url}} style={styles.movie_card__img} />
                     </View>
                     <View style={styles.movie_card__info}>
-                        <Text style={styles.movie_card__title} numberOfLines={2} ellipsizeMode='tail'>{movie.title || movie.name || "No title"}</Text>
+                        <Text style={styles.movie_card__title} numberOfLines={2} ellipsizeMode='tail'>{movie.title || "No title"}</Text>
                         <View style={styles.movie_card_rating}>
                             {
-                                Array.from({ length: rating}).map((_, index) => (
+                                Array.from({ length: movie.vote_average}).map((_, index) => (
                                     <Image key={index} source={require("../assets/images/icons/icon_star_yellow.png")} style={styles.movie_card_star__img}/>
                                 ))
                             }
