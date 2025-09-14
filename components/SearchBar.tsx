@@ -1,14 +1,20 @@
+import useDebounce from "@/hooks/useDebounce"
+import { useEffect, useState } from "react"
 import { Image, StyleSheet, TextInput, View } from "react-native"
 
 
 const SearchBar = () => {
-    function handleSearch(text: string){
-        console.log(text)
-    }
+    const [searchTerm, setSearchTerm] = useState("")
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+    useEffect(() => {
+        console.log(debouncedSearchTerm)
+    }, [debouncedSearchTerm])
+
   return (
     <View style={styles.search_bar}>
         <Image source={require("../assets/images/icons/icon_search_grey.png")} style={{width: 24, height: 24}}/>
-        <TextInput onChangeText={handleSearch} placeholder="Wednesday, Minecraft..." placeholderTextColor={"#FFFFFF80"} style={styles.search_bar__input}/>
+        <TextInput onChangeText={(text) => setSearchTerm(text)} placeholder="Wednesday, Minecraft..." placeholderTextColor={"#FFFFFF80"} style={styles.search_bar__input}/>
     </View>
   )
 }
