@@ -1,4 +1,5 @@
 import { Client, Databases, ID, Query } from "appwrite";
+import { getProducers, getTopCast } from "./api/helpers";
 import { fetchMovieCredits, fetchSeriesCredits } from "./api/tmdb";
 
 const client = new Client()
@@ -29,24 +30,18 @@ export const addToDatabase = async (media) => {
 
     if (result.documents.length > 0) {
       console.log("This media is already in the database.");
-      console.log(result.documents[0]);
       return result.documents[0];
     }
 
     if(media.media_type === "movie") {
       const movieCredits = await fetchMovieCredits(media.id);
-      const movieCast = movieCredits.cast.sort((a, b) => a.order - b.order).slice(0, 4).map(member => member.name).join(", ");
-      const movieProducers = movieCredits.crew.filter(member => member.job === "Producer" || "Executive producer").slice(0, 9).map(member => member.name).join(", ");
-      media.cast = movieCast;
-      media.producers = movieProducers;
+      media.cast = getTopCast(movieCredits.cast);
+      media.producers = getProducers(movieCredits.crew);
 
     }else {
       const tvCredits = await fetchSeriesCredits(media.id);
-      const tvCast = tvCredits.cast.sort((a, b) => a.order - b.order).slice(0, 4).map(member => member.name).join(", ");
-      const tvProducers = tvCredits.crew.filter(member => member.job === "Producer" || "Executive producer").slice(0, 9).map(member => member.name).join(", ");
-      media.producers = tvProducers;
-      console.log("TV Cast:", tvProducers);
-      media.cast = tvCast;
+      media.producers = getTopCast(tvCredits.cast);
+      media.cast = getProducers(tvCredits.crew);
     }
 
     const movie = await databases.createDocument({
@@ -73,3 +68,28 @@ export const addToDatabase = async (media) => {
   }
 };
 
+
+export const findMedia = async (query) => {
+  try{
+    if(!query) return [];
+
+    const result = await databases.listDocuments({
+      databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID ?? "",
+      collectionId: process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID ?? "",
+      queries: [Query.or([
+        Query.contains("title", query), 
+        Query.contains("cast", query),
+        Query.contains("producers", query),
+      ]) as string],
+    });
+
+     if (result.documents.length > 0) {
+      return result.documents;
+    }
+
+    return []
+  }catch(error){
+    console.log(error)
+  }
+
+}
