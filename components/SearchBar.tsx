@@ -5,9 +5,9 @@ import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-const { height } = Dimensions.get("window"); // <--- Get screen height
+const { height } = Dimensions.get("window");
 
-const SearchBar = ({ fetchMovie }) => {
+const SearchBar = ({ fetchMovie }: Props) => {
   const { setSelectedMovie } = useMovie();
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500);

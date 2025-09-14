@@ -1,10 +1,17 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
-const MovieContext = createContext(null);
+interface MovieContextType {
+  selectedMovie: object;
+  setSelectedMovie: React.Dispatch<React.SetStateAction<object>>;
+  watchlist: object[];
+  setWatchlist: React.Dispatch<React.SetStateAction<object[]>>;
+}
 
-export const MovieProvider = ({children}) => {
-    const [selectedMovie, setSelectedMovie] = useState({});
-    const [watchlist, setWatchlist] = useState([]);
+const MovieContext = createContext<MovieContextType | undefined>(undefined);
+
+export const MovieProvider = ({children}: {children: ReactNode}) => {
+    const [selectedMovie, setSelectedMovie] = useState<object>({});
+    const [watchlist, setWatchlist] = useState<object[]>([]);
     
     return (
         <MovieContext.Provider value={{selectedMovie, setSelectedMovie, watchlist, setWatchlist}}>

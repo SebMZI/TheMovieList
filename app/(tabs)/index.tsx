@@ -27,7 +27,7 @@ export default function Home() {
     }
   }, [loading, hasMore]);
 
-  const fetchMovie = async (query) => {
+  const fetchMovie = async (query: string) => {
      return await searchMoviesAndSeries(query)
   }
 
